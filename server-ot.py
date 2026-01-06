@@ -77,8 +77,12 @@ if __name__ == "__main__":
     parser.add_argument( "-S", "--stop-bits", help="set number of stop bits for serial device, default is 1", default=1, type=int)
     parser.add_argument( "-B", "--byte-size", help="set number of bytesize for serial device, default is 8", default=8, type=int)
     parser.add_argument( "-p", "--port", help="set port or serial device. default is /dev/ttyS0",default="/dev/ttyS0", type=str, required=True)
-    parser.add_argument( "-F", "--framer", help="set framer type, default is RTU", default="rtu", type=str )
+    parser.add_argument( "-F", "--framer", choices=["rtu", "ascii"], help="set framer type, default is RTU", default="rtu", type=str )
     args = parser.parse_args()
+
+    if args.help is not None:
+        parser.print_help()
+        sys.exit(0)
 
     # Setup logging to file or console
     if args.output is not None:
