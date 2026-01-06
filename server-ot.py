@@ -58,7 +58,7 @@ def run_sync_server(args) -> None:
                     # broadcast_enable=False,  # treat device_id 0 as broadcast address,
                 )
     except KeyboardInterrupt:
-        logger.info("### server shutdown requested by keyboard interrupt")
+        logger.debug("### server shutdown requested by keyboard interrupt")
         sys.exit(0)
     except RuntimeError as ex:
         logger.error(f"### server shutdown due to runtime error: {ex}")
@@ -83,9 +83,12 @@ if __name__ == "__main__":
     parser.add_argument( "-F", "--framer", choices=["rtu", "ascii"], help="set framer type, default is RTU", default="rtu", type=str )
     args = parser.parse_args()
 
-    if args.help is not None:
-        parser.print_help()
-        sys.exit(0)
+    try:
+        if args.help is not None:
+            parser.print_help()
+            sys.exit(0)
+    except AttributeError as ex:
+        pass
 
     # Setup logging to file or console
     if args.output is not None:
