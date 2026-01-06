@@ -11,6 +11,7 @@ logger = logging.getLogger("server-ot")
 
 def create_datablock(block_type: str, size: int):
     """Create a Modbus data block based on the type."""
+    logger.debug(f"Creating datablock of type: {block_type} with size: {size}")
     if block_type == "sparse_inputs":
         block = ModbusSparseDataBlock({i: False for i in range(0, size)}) 
         return block
@@ -22,21 +23,25 @@ def create_datablock(block_type: str, size: int):
 
 def run_sync_server(args) -> None:
     """Run synchronous server."""
+    logger.debug("Creating Modbus data blocks for DI, CO, HR, IR")
     di_datablock = create_datablock("sequential_inputs", 10)
     co_datablock = create_datablock("sequential_inputs", 10)
     hr_datablock = create_datablock("sparse_inputs", 10)
     ir_datablock = create_datablock("sparse_inputs", 10)
-
+    logger.debug("Data blocks created successfully")
+    logger.debug("Creating Modbus device context")
     device_context = ModbusDeviceContext(
             di=di_datablock,
             co=co_datablock,
             hr=hr_datablock,
             ir=ir_datablock,
         )
-
+    logger.debug("Device context created successfully")
+    logger.debug("Creating Modbus server context")
     server_context = ModbusServerContext(
         {args.id: device_context}, single=False
     )
+    logger.debug("Server context created successfully")
     try:
         logger.info(f"### start SYNC serial server, listening on {args.port}")
         StartSerialServer(
@@ -60,10 +65,8 @@ def run_sync_server(args) -> None:
     except Exception as ex:
         logger.error(f"### server shutdown due to exception: {ex}")
 
-
-
 def sync_helper() -> None:
-    """Combine setup and run."""
+    logger.debug("### Run Serial device (server)")
     run_sync_server(args)
     # server.shutdown()
 
