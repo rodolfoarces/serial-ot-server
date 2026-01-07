@@ -1,6 +1,10 @@
 # serial-ot-server
 OT device emulator (server)
 
+## Requirements
+
+`pip install pymodbus[serial]`
+
 ## Usage
 
 ```
