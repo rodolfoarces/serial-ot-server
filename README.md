@@ -4,8 +4,8 @@ OT device emulator (server)
 ## Usage
 
 ```
-usage: server-ot.py [-h] [-l {critical,error,warning,info,debug}] [-b BAUDRATE] [-i ID] [-o OUTPUT] [-P PARITY]
-                    [-S STOP_BITS] [-B BYTE_SIZE] -p PORT [-F {rtu,ascii}]
+usage: serial-server-ot.py [-h] [-l {critical,error,warning,info,debug}] [-b BAUDRATE] [-i ID] [-o OUTPUT] [-P PARITY] [-S STOP_BITS] [-B BYTE_SIZE] -p PORT
+                           [-F {rtu,ascii}]
 
 pymodbus synchronous serial server
 
@@ -31,4 +31,4 @@ options:
 
 ## Example
 
-`python3 server-ot.py -l debug -b 9600 -i 1 -o out.log -P N -S 1 -B 8 -p /tmp/ttyS0 -F rtu`
+`python3 serial-server-ot.py -l debug -b 9600 -i 1 -o out.log -P N -S 1 -B 8 -p /tmp/ttyS0 -F rtu`

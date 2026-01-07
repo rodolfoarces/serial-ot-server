@@ -7,26 +7,29 @@ Detailed description of the device definition can be found at:
 
     https://pymodbus.readthedocs.io/en/latest/source/library/simulator/config.html#device-entries
 
-usage::
+usage: serial-server-ot.py [-h] [-l {critical,error,warning,info,debug}] [-b BAUDRATE] [-i ID] [-o OUTPUT] [-P PARITY] [-S STOP_BITS] [-B BYTE_SIZE] -p PORT
+                           [-F {rtu,ascii}]
 
-    datastore_simulator_share.py [-h]
-                        [--log {critical,error,warning,info,debug}]
-                        [--port PORT]
-                        [--test_client]
+pymodbus synchronous serial server
 
-    -h, --help
-        show this help message and exit
-    -l, --log {critical,error,warning,info,debug}
-        set log level
-    -p, --port PORT
-        set port to use
-    --test_client
-        starts a client to test the configuration
-
-The corresponding client can be started as:
-    python3 client_sync.py
-
-.. tip:: This is NOT the pymodbus simulator, that is started as pymodbus.simulator.
+options:
+  -h, --help            show this help message and exit
+  -l {critical,error,warning,info,debug}, --log-level {critical,error,warning,info,debug}
+                        set log level, default is info
+  -b BAUDRATE, --baudrate BAUDRATE
+                        set serial device baud rate
+  -i ID, --id ID        set number of device_id, default is 0 (any)
+  -o OUTPUT, --output OUTPUT
+                        set output file name
+  -P PARITY, --parity PARITY
+                        set parity of serial device, default is N (none)
+  -S STOP_BITS, --stop-bits STOP_BITS
+                        set number of stop bits for serial device, default is 1
+  -B BYTE_SIZE, --byte-size BYTE_SIZE
+                        set number of bytesize for serial device, default is 8
+  -p PORT, --port PORT  set port or serial device. default is /dev/ttyS0
+  -F {rtu,ascii}, --framer {rtu,ascii}
+                        set framer type, default is RTU
 """
 import argparse
 import asyncio
